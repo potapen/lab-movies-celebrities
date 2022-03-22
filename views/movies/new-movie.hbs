@@ -1,0 +1,23 @@
+<h2>Create your Movie</h2>
+<form action="" method="post">
+    <label for="titleLabel">title</label>
+    <input type="text" name="title" id="titleLabel">
+    <label for="genreLabel">genre</label>
+    <input type="text" name="genre" id="genreLabel">
+    <label for="plotLabel">plot</label>
+    <input type="text" name="plot" id="plotLabel">
+    <label for="castLabel">cast</label>
+    <select name="cast" id="castLabel" multiple>
+        {{#each celebrities}}
+            <option value="{{id}}">{{name}}</option>
+        {{/each}}
+    </select>
+    <input type="submit" value="Create">
+</form>
+
+{{!-- const movieSchema = new mongoose.Schema({
+    title: String,
+    genre: String,
+    plot: String,
+    cast: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Celebrity' }]
+}) --}}
