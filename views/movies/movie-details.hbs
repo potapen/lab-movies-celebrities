@@ -1,0 +1,20 @@
+movie-details.hbs
+{{#with movie}}
+    <p>title: {{title}}</p>
+    <p>genre: {{genre}}</p>
+    <p>plot: {{plot}}</p>
+    <p>cast:
+        <ul>
+            {{#each cast}}
+                <h3>name: {{name}}</h3>
+                <li>occupation: {{occupation}}</li>
+                <li>catchPhrase: {{catchPhrase}}</li>
+            {{/each}}
+        </ul>
+    </p>
+    <form action="/movies/{{id}}/delete" method="post">
+        ><input type="submit" value="delete">
+    </form>
+
+
+{{/with}}

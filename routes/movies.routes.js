@@ -5,24 +5,59 @@ const MovieModel = require("../models/Movie.model");
 const router = require("express").Router();
 
 // all your routes here
-
-
-router.get('/create', async (request,response,next)=> {
+router.get('/', async (request,response,next)=> {
     try{
-        const celebrities = await CelebrityModel.find();
-        console.log(celebrities)
-        response.render('movies/new-movie.hbs', {celebrities})
+        const movies = await MovieModel.find();
+        console.log(movies);
+        response.render('movies/movies.hbs', {movies});
     }
     catch(error){console.log(error)}
 });
 
-router.get('/', async (request,response,next)=> {
+router.get('/create', async (request,response,next)=> {
     try{
-        // const celebrities = await CelebrityModel.find()
-        // console.log(celebrities)
-        // response.render('celebrities/celebrities.hbs', {celebrities})
+        const celebrities = await CelebrityModel.find();
+        console.log(celebrities);
+        response.render('movies/new-movie.hbs', {celebrities});
     }
-    catch(error){console.error(error)}
+    catch(error){console.log(error)}
 });
 
+router.post('/create', async (request,response,next)=> {
+    try{
+        const inputInfo = request.body;
+        console.log('inputInfo: ', inputInfo);
+        const movie = await MovieModel.create(inputInfo);
+        console.log(movie);
+        // response.send('POSTED!');
+        response.redirect('/movies');
+    }
+    catch(error){console.log(error)};
+});
+
+
+router.get('/:id', async (request,response,next)=> {
+    try{
+        const {id} = request.params;
+        console.log('id is: ', id);
+        const movie = await MovieModel.findById(id).populate('cast');
+        console.log(movie);
+        // response.send('get by ID!');
+        response.render('movies/movie-details', {movie});
+    }
+    catch(error){console.log(error)}
+});
+
+
+router.post('/:id/delete', async (request,response,next)=> {
+    try{
+        const {id} = request.params;
+        console.log('id is: ', id);
+        const movie = await MovieModel.findByIdAndDelete(id);
+        console.log(movie);
+        // response.send('deleted!');
+        response.redirect('/movies');
+    }
+    catch(error){console.log(error)}
+});
 module.exports = router;

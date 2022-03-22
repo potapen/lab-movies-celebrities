@@ -1,0 +1,8 @@
+movies.hbs
+<h2>All the movies in the database</h2>
+{{#each movies}}
+    <p>title: {{title}}</p>
+    <a href="/movies/{{id}}">details</a>
+{{/each}}
+<a href="/movies/create"> create your movie</a>
+<a href="/movies"> find all movies</a>
